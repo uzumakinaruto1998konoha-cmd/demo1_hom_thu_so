@@ -1,1 +1,491 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hòm Thư Tố Giác Tội Phạm Số - Công An Xã Đức Hợp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #005a2b; /* Xanh lục đậm ngành Công an */
+            --accent-red: #da251c;    /* Đỏ cờ / Đỏ đô làm điểm nhấn */
+            --bg-light: #f4f6f8;      /* Nền xám sáng */
+            --text-dark: #222222;
+            --text-muted: #555555;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary-green), #003e1d);
+            color: var(--white);
+            padding: 20px 15px;
+            text-align: center;
+            border-bottom: 4px solid var(--accent-red);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .header-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge-img {
+            width: 80px;
+            height: auto;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .header-title h1 {
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+
+        .header-title h2 {
+            font-size: 1.1rem;
+            color: #ffeb3b;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* CONTAINER CHÍNH */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* BANNER CAM KẾT */
+        .hero-card {
+            background: var(--white);
+            border-left: 5px solid var(--accent-red);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .hero-card h3 {
+            color: var(--primary-green);
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        .hero-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .btn-trigger-popup {
+            display: inline-block;
+            width: 100%;
+            max-width: 350px;
+            background-color: var(--accent-red);
+            color: var(--white);
+            padding: 14px 20px;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(218, 37, 28, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .btn-trigger-popup:hover {
+            background-color: #b81c14;
+            transform: translateY(-2px);
+        }
+
+        /* KHỐI BẢNG CAM KẾT BẢO MẬT */
+        .info-section {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            color: var(--primary-green);
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+
+        th, td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: #e8f5e9;
+            color: var(--primary-green);
+            white-space: nowrap;
+        }
+
+        /* THÔNG TIN LIÊN HỆ & CẢNH BÁO */
+        .contact-card {
+            background: #eef7f2;
+            border: 1px solid #c8e6c9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .contact-item i {
+            color: var(--primary-green);
+            margin-top: 3px;
+        }
+
+        .warning-box {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            border-left: 4px solid #ffeba2;
+        }
+
+        /* MODAL POPUP (FORM TỐ GIÁC) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: var(--white);
+            width: 100%;
+            max-width: 550px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #888;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--primary-green);
+            color: var(--white);
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* NÚT THAO TÁC NHANH CỐ ĐỊNH (FLOATING ACTION BUTTONS) */
+        .floating-actions {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 999;
+        }
+
+        .float-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+
+        .float-btn:active {
+            transform: scale(0.9);
+        }
+
+        .btn-hotline { background-color: var(--accent-red); }
+        .btn-zalo { background-color: #0068ff; font-weight: bold; font-size: 0.8rem; }
+        .btn-vneid { background-color: var(--primary-green); }
+
+        /* RESPONSIVE DESIGN (CHUYÊN CHO MOBILE) */
+        @media (min-width: 600px) {
+            .header-container {
+                flex-direction: row;
+                text-align: left;
+                justify-content: center;
+            }
+            .header-title h1 { font-size: 1.6rem; }
+            .header-title h2 { font-size: 1.2rem; }
+            .badge-img { width: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <img src="https://upload.wikimedia.org/wikipedia/vi/1/1b/Ph%C3%B9_hi%E1%BB%87u_C%C3%B4ng_an_nh%C3%A2n_d%C3%A2n_Vi%E1%BB%87t_Nam.png" alt="Phù hiệu CAND" class="badge-img">
+            <div class="header-title">
+                <h1>CÔNG AN XÃ ĐỨC HỢP</h1>
+                <h2>HÒM THƯ TỐ GIÁC TỘI PHẠM SỐ</h2>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="hero-card">
+            <h3>TIẾP NHẬN BÁO CÁO & PHẢN ÁNH AN NINH TRẬT TỰ</h3>
+            <p>Bảo vệ bình yên cho cộng đồng là trách nhiệm chung. Mọi thông tin gửi tới đều được bảo mật tuyệt đối.</p>
+            <button class="btn-trigger-popup" onclick="openModal()">
+                <i class="fa-solid fa-paper-plane"></i> Gửi tố giác ngay
+            </button>
+        </div>
+
+        <div class="info-section">
+            <div class="section-title">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>CAM KẾT TỪ CÔNG AN XÃ ĐỨC HỢP</span>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tiêu chí</th>
+                            <th>Nội dung cam kết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Bảo mật danh tính</strong></td>
+                            <td>Mã hóa toàn bộ thông tin đầu vào. Giữ bí mật tuyệt đối người tố giác theo quy định pháp luật.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Xử lý nhanh chóng</strong></td>
+                            <td>Lực lượng trực ban tiếp nhận, xác minh thông tin ngay khi nhận phản ánh.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bảo vệ an toàn</strong></td>
+                            <td>Xử lý nghiêm mọi hành vi đe dọa, trả thù người cung cấp thông tin.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <div class="contact-item">
+                <i class="fa-solid fa-phone"></i>
+                <div><strong>Hotline 24/7:</strong> <a href="tel:02213815999" style="color:var(--accent-red); font-weight:bold;">02213.815.999</a></div>
+            </div>
+            <div class="contact-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <div><strong>Địa chỉ trụ sở:</strong> Thôn Nho Lâm, xã Đức Hợp, tỉnh Hưng Yên</div>
+            </div>
+            <div class="contact-item">
+                <i class="fa-solid fa-mobile-screen"></i>
+                <div><strong>Ứng dụng VNeID:</strong> Tố giác trực tiếp qua mục <i>"Phản ánh ANTT"</i> trên VNeID.</div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <i class="fa-solid fa-triangle-exclamation"></i> <strong>Lưu ý:</strong> Người cố tình báo thông tin sai sự thật, vu khống hoặc xúc phạm danh dự người khác sẽ bị xử lý nghiêm theo quy định của pháp luật.
+        </div>
+
+    </div>
+
+    <div class="modal" id="reportModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <h3 style="color: var(--primary-green); margin-bottom: 15px; font-size: 1.2rem;">
+                <i class="fa-solid fa-file-pen"></i> GỬI PHẢN ÁNH TỐ GIÁC
+            </h3>
+            
+            <form id="crimeReportForm">
+                <div class="form-group">
+                    <label>Hình thức tố giác:</label>
+                    <select class="form-control" id="reportType">
+                        <option value="nacdanh">Giữ bí mật (Nặc danh)</option>
+                        <option value="congkhai">Cung cấp họ tên (Để nhận phản hồi)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Loại hình vi phạm:</label>
+                    <select class="form-control" required>
+                        <option value="">-- Chọn loại hình vi phạm --</option>
+                        <option value="matuy">Tội phạm ma túy</option>
+                        <option value="tromcap">Trộm cắp / Cướp giật</option>
+                        <option value="cobac">Cờ bạc / Lô đề</option>
+                        <option value="atgt">Vi phạm Trật tự an toàn giao thông</option>
+                        <option value="khac">Hành vi vi phạm khác</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Thời gian & Địa điểm xảy ra vụ việc:</label>
+                    <input type="text" class="form-control" placeholder="Ví dụ: 20h ngày... tại xóm X, thôn Nho Lâm" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Nội dung chi tiết phản ánh:</label>
+                    <textarea class="form-control" placeholder="Mô tả hành vi, đối tượng vi phạm..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Đính kèm bằng chứng (Hình ảnh/Video):</label>
+                    <input type="file" class="form-control" accept="image/*,video/*">
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-paper-plane"></i> XÁC NHẬN GỬI
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="floating-actions">
+        <a href="tel:02213815999" class="float-btn btn-hotline" title="Gọi Hotline 24/7">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+        <a href="https://zalo.me/02213815999" target="_blank" class="float-btn btn-zalo" title="Gửi Zalo">
+            Zalo
+        </a>
+        <a href="javascript:void(0)" onclick="openModal()" class="float-btn btn-vneid" title="Tố giác nhanh">
+            <i class="fa-solid fa-qrcode"></i>
+        </a>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('reportModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('reportModal').style.display = 'none';
+        }
+
+        // Đóng popup khi click ra ngoài hộp thoại
+        window.onclick = function(event) {
+            const modal = document.getElementById('reportModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Xử lý gửi Form đơn giản
+        document.getElementById('crimeReportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Gửi phản ánh thành công! Công an xã Đức Hợp chân thành cảm ơn thông tin của bạn.');
+            closeModal();
+            this.reset();
+        });
+    </script>
+</body>
+</html>
 first
